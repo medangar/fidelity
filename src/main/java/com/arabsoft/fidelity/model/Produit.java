@@ -1,73 +1,36 @@
 package com.arabsoft.fidelity.model;
 
 import jakarta.persistence.*;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
-
+@Getter
+@Setter
+@ToString
+@RequiredArgsConstructor
+@AllArgsConstructor
+@EqualsAndHashCode
 @Entity
 @Table(name = "Produit")
 public class Produit {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private Long produitId;
-    @Column(name = "nom", nullable = false)
-    private String nom;
-    @Column(name = "valeurStock", nullable = false)
-    private int valStock;
+    private Long id;
+    @Column(name = "statut", nullable = false)
+    private boolean statut;
+    @Column(name = "name", nullable = false)
+    private String name;
+    @Column(name = "quantity", nullable = false)
+    private int quantity;
+    @Column(name = "category", nullable = false)
+    private String category;
+    @Column(name = "price", nullable = false)
+    private Float price;
     @ManyToMany(mappedBy = "produits", fetch = FetchType.LAZY)
     private List<OffreProduit> Offreproduits = new ArrayList<>();
 
-    public Produit() {
 
-    }
-
-    public Produit(String nom, int valStock) {
-        this.nom = nom;
-        this.valStock = valStock;
-    }
-
-    public Long getProduitId() {
-        return produitId;
-    }
-
-    public void setProduitId(Long produitId) {
-        this.produitId = produitId;
-    }
-
-    public String getNom() {
-        return nom;
-    }
-
-    public void setNom(String nom) {
-        this.nom = nom;
-    }
-
-    public int getValStock() {
-        return valStock;
-    }
-
-    public void setValStock(int valStock) {
-        this.valStock = valStock;
-    }
-
-    public List<OffreProduit> getOffreproduits() {
-        return Offreproduits;
-    }
-
-    public void setOffreproduits(List<OffreProduit> offreproduits) {
-        Offreproduits = offreproduits;
-    }
-
-    @Override
-    public String toString() {
-        return "Produit{" +
-                "produitId=" + produitId +
-                ", nom='" + nom + '\'' +
-                ", valStock=" + valStock +
-                ", Offreproduits=" + Offreproduits +
-                '}';
-    }
 }
 

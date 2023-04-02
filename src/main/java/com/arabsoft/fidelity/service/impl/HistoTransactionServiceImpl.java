@@ -1,7 +1,7 @@
 package com.arabsoft.fidelity.service.impl;
 
-import com.arabsoft.fidelity.repository.HistoTransactionRepository;
 import com.arabsoft.fidelity.model.HistoTransaction;
+import com.arabsoft.fidelity.repository.HistoTransactionRepository;
 import com.arabsoft.fidelity.service.HistoTransactionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -18,7 +18,7 @@ public class HistoTransactionServiceImpl implements HistoTransactionService {
     }
 
     public HistoTransaction getHistoTransactionById(Long id) {
-        return histoTransactionRepository.findById((long) id).get();
+        return histoTransactionRepository.findById(id).get();
     }
 
     public void saveOrUpdate(HistoTransaction histoTransaction) {
@@ -26,10 +26,10 @@ public class HistoTransactionServiceImpl implements HistoTransactionService {
     }
 
     public void delete(Long id) {
-        histoTransactionRepository.deleteById((long) id);
+        histoTransactionRepository.deleteById(id);
     }
 
-    public void update(HistoTransaction histoTransaction, Long id) {
+    public void update(HistoTransaction histoTransaction) {
         histoTransactionRepository.save(histoTransaction);
     }
 }

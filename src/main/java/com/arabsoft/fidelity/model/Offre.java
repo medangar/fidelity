@@ -1,11 +1,18 @@
 package com.arabsoft.fidelity.model;
 
 import jakarta.persistence.*;
+import lombok.*;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
-
+@Getter
+@Setter
+@ToString
+@RequiredArgsConstructor
+@AllArgsConstructor
+@EqualsAndHashCode
 @Entity
 @Table(name = "Offre")
 public class Offre {
@@ -13,12 +20,14 @@ public class Offre {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
+    @Column(name = "name", nullable = false)
+    private String name;
 
     @Column(name = "validite", nullable = false)
-    private Date validite;
+    private LocalDate validite;
 
-    @Column(name = "active", nullable = false)
-    private Boolean active;
+    @Column(name = "statut", nullable = false)
+    private String statut;
 
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
@@ -30,37 +39,4 @@ public class Offre {
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "offre_id")
     private List<OffreProduit> offreProduits;
-
-    public Offre() {
-    }
-
-    public Offre(Long id, Date validite, Boolean active) {
-        this.id = id;
-        this.validite = validite;
-        this.active = active;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Date getValidite() {
-        return validite;
-    }
-
-    public void setValidite(Date validite) {
-        this.validite = validite;
-    }
-
-    public Boolean getActive() {
-        return active;
-    }
-
-    public void setActive(Boolean active) {
-        this.active = active;
-    }
 }

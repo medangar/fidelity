@@ -16,7 +16,7 @@ public class ClientServiceImpl implements ClientService {
 
 
     public Client getClientById(Long id) {
-        return clientRepository.findById((long) id).get();
+        return clientRepository.findById(id).get();
     }
 
     public Client save(Client client) {
@@ -29,7 +29,7 @@ public class ClientServiceImpl implements ClientService {
     }
 
     public void delete(Long id) {
-        clientRepository.deleteById((long) id);
+        clientRepository.deleteById(id);
     }
 
     @Override
