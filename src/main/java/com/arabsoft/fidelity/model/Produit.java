@@ -19,7 +19,7 @@ public class Produit {
     @Column(name = "id")
     private Long id;
     @Column(name = "statut", nullable = false)
-    private boolean statut;
+    private String statut;
     @Column(name = "name", nullable = false)
     private String name;
     @Column(name = "quantity", nullable = false)

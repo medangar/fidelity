@@ -2,7 +2,9 @@ package com.arabsoft.fidelity.model;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,6 +23,12 @@ public class OffreProduit {
     private Long id;
     @Column(name = "valeur", nullable = false)
     private int valeur;
+    @Column(name = "validite", nullable = false)
+    private LocalDate validite;
+    @Column(name = "name", nullable = false)
+    private String name;
+    @Column(name = "statut", nullable = false)
+    private String statut;
     @ManyToOne
     @JoinColumn(name = "offre_id")
     private Offre offre;

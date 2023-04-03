@@ -26,6 +26,8 @@ public class Carte {
     private Date derniereVisite;
     @Column(name = "nb_points", nullable = false)
     private Float nbPoints;
+    @Column(name = "statut", nullable = false)
+    private String statut;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "id")
