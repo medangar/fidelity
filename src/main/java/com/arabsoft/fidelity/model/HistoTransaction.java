@@ -10,7 +10,6 @@ import java.util.Date;
 @ToString
 @RequiredArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode
 @Entity
 @Table(name = "hist_transaction")
 public class HistoTransaction {

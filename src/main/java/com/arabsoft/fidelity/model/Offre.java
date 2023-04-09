@@ -1,10 +1,10 @@
 package com.arabsoft.fidelity.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 
 @Getter
@@ -24,18 +24,21 @@ public class Offre {
     private String name;
 
     @Column(name = "validite", nullable = false)
+
     private LocalDate validite;
 
     @Column(name = "statut", nullable = false)
     private String statut;
 
-
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "carte_id")
     private List<Carte> cartes;
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "offre_id")
     private List<OffreAchat> offreAchats;
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "offre_id")
     private List<OffreProduit> offreProduits;

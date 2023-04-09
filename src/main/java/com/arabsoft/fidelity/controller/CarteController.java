@@ -1,6 +1,7 @@
 package com.arabsoft.fidelity.controller;
 
 import com.arabsoft.fidelity.model.Carte;
+import com.arabsoft.fidelity.request.DeleteRequest;
 import com.arabsoft.fidelity.service.CarteService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -24,20 +25,26 @@ public class CarteController {
         return carteService.getCarteById(carteId);
     }
 
+
+
+    @PostMapping
+    private Carte saveClient(@RequestBody Carte carte) {
+        System.out.println(carte);
+        return carteService.saveOrUpdate(carte);
+    }
+
+    @PutMapping
+    private Carte update(@RequestBody Carte carte) {
+        return carteService.saveOrUpdate(carte);
+    }
+
     @DeleteMapping("/{carteId}")
     public void deleteCarte(@PathVariable(value = "carteId") Long carteId) {
         carteService.delete(carteId);
     }
 
-    @PostMapping
-    private int saveClient(@RequestBody Carte carte) {
-        carteService.saveOrUpdate(carte);
-        return Math.toIntExact(carte.getCarteId());
-    }
-
-    @PutMapping
-    private Carte update(@RequestBody Carte carte) {
-        carteService.saveOrUpdate(carte);
-        return carte;
+    @DeleteMapping
+    public void deleteCartes(@RequestBody DeleteRequest userIds) {
+        carteService.delete(userIds.getIds());
     }
 }

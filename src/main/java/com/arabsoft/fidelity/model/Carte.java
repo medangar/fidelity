@@ -3,7 +3,7 @@ package com.arabsoft.fidelity.model;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 @Getter
@@ -20,10 +20,10 @@ public class Carte {
     @Column(name = "carte_id")
     private Long carteId;
     @Column(name = "date_validite", nullable = false)
-    private Date dateValidite;
+    private LocalDate dateValidite;
 
-    @Column(name = "derniere_visite", nullable = false)
-    private Date derniereVisite;
+    @Column(name = "derniere_visite")
+    private LocalDate derniereVisite;
     @Column(name = "nb_points", nullable = false)
     private Float nbPoints;
     @Column(name = "statut", nullable = false)

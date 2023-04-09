@@ -12,5 +12,7 @@ public interface CarteService {
 
     void delete(Long carteId);
 
-    void saveOrUpdate(Carte carte);
+    Carte saveOrUpdate(Carte carte);
+
+    void delete(List<Long> ids);
 }

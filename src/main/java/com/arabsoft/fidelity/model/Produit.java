@@ -1,5 +1,6 @@
 package com.arabsoft.fidelity.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -28,6 +29,7 @@ public class Produit {
     private String category;
     @Column(name = "price", nullable = false)
     private Float price;
+    @JsonIgnore
     @ManyToMany(mappedBy = "produits", fetch = FetchType.LAZY)
     private List<OffreProduit> Offreproduits = new ArrayList<>();
 
