@@ -30,14 +30,17 @@ public class Offre {
     @Column(name = "statut", nullable = false)
     private String statut;
 
+    @ToString.Exclude
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "carte_id")
     private List<Carte> cartes;
+    @ToString.Exclude
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "offre_id")
     private List<OffreAchat> offreAchats;
+    @ToString.Exclude
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "offre_id")

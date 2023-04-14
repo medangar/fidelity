@@ -1,5 +1,6 @@
 package com.arabsoft.fidelity.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -29,6 +30,7 @@ public class Carte {
     @Column(name = "statut", nullable = false)
     private String statut;
 
+    @ToString.Exclude
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "id")
     private List<HistoTransaction> transactions;

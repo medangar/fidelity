@@ -29,6 +29,7 @@ public class Produit {
     private String category;
     @Column(name = "price", nullable = false)
     private Float price;
+    @ToString.Exclude
     @JsonIgnore
     @ManyToMany(mappedBy = "produits", fetch = FetchType.LAZY)
     private List<OffreProduit> Offreproduits = new ArrayList<>();
