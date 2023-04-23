@@ -1,6 +1,5 @@
 package com.arabsoft.fidelity.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -22,22 +21,21 @@ public class Carte {
     private Long carteId;
     @Column(name = "date_validite", nullable = false)
     private LocalDate dateValidite;
-
     @Column(name = "derniere_visite")
     private LocalDate derniereVisite;
     @Column(name = "nb_points", nullable = false)
     private Float nbPoints;
     @Column(name = "statut", nullable = false)
     private String statut;
-
     @ToString.Exclude
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "id")
+    //@JoinColumn(name = "id")
     private List<HistoTransaction> transactions;
-
     @ManyToOne
     @JoinColumn(name = "offre_id")
     private Offre offre;
-
+    @ManyToOne
+    @JoinColumn(name = "client_id")
+    private Client client;
 
 }

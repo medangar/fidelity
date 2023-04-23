@@ -64,8 +64,7 @@ public class TransactionServiceImpl implements TransactionService {
                 .orElseThrow(() -> new FidelityException("compte n'existe pas", COMPTE_NOT_FOUND));
         Long offreId = carte.getOffre().getId();
         Optional<OffreAchat> offreAchat = offreAchatRepository.getLastOffreAchatByOffreAndMinValue(offreId, request.getTotal()).stream().findFirst();
-        List<OffreProduit> offreProduit = offreProduitRepository.getOffreProduitByOffre(offreId,request.getProductsIds());
-        int sumOffreProduit = offreProduit.stream().flatMapToInt(x -> IntStream.of(x.getValeur())).sum();
+        float sumOffreProduit = offreProduitRepository.getOffreProduitByOffre(offreId,request.getProductsIds());
         float newSolde = carte.getNbPoints() + offreAchat.get().getValeur() + sumOffreProduit;
         HistoTransaction transaction = HistoTransaction.builder()
                 .typeTransaction("debiteur")

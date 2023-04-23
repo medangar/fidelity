@@ -10,6 +10,11 @@ import java.util.List;
 
 @Repository
 public interface OffreProduitRepository extends JpaRepository<OffreProduit,Long> {
-    @Query("SELECT op FROM OffreProduit op inner join op.offre o left join op.produits p WHERE o.id = :offreId and p.id in (:ids)")
-    List<OffreProduit> getOffreProduitByOffre(@Param("offreId") Long offreId, @Param("ids") List<Long> productsIds);
+    @Query(nativeQuery = true , value = "select  sum(op.valeur) " +
+            "from Produit p " +
+            "inner join offre_produit_produits opp on opp.produits_id = p.id " +
+            "inner join offre_produit op on op.id = opp.offreproduits_id " +
+            "inner join offre o on o.id = op.offre_id " +
+            "WHERE o.id = :offreId and p.id in (:ids)")
+    float getOffreProduitByOffre(@Param("offreId") Long offreId, @Param("ids") List<Long> productsIds);
 }

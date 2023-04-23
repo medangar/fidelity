@@ -63,8 +63,10 @@ public class AuthServiceImpl implements AuthService {
         newClient.setPassword(new BCryptPasswordEncoder().encode(client.getPassword()));
         newClient.setAdresse(client.getAddress());
         newClient.setIdentifiant(client.getIdentifiant());
+        newClient.setSexe(client.getGender());
+        newClient.setDatenaiss(client.getBirthDate());
         newClient.setTel(client.getTel());
-        newClient.setRole("ROLE_USER");
+        newClient.setRole("Client");
         return Optional.of(clientRepository.save(newClient));
     }
 }
