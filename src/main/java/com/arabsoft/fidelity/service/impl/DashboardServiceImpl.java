@@ -4,6 +4,7 @@ import com.arabsoft.fidelity.repository.CarteRepository;
 import com.arabsoft.fidelity.repository.HistoTransactionRepository;
 import com.arabsoft.fidelity.repository.UserRepository;
 import com.arabsoft.fidelity.response.CarteByClient;
+import com.arabsoft.fidelity.response.DashboardClientResponse;
 import com.arabsoft.fidelity.response.DashboardResponse;
 import com.arabsoft.fidelity.response.StatPoint;
 import com.arabsoft.fidelity.service.DashboardService;
@@ -44,30 +45,56 @@ public class DashboardServiceImpl implements DashboardService {
                         .build())
                 .build();
     }
+
+    @Override
+    public DashboardClientResponse getDataForClient(String identifiant) {
+        return DashboardClientResponse.builder()
+                .totalPoints(carteRepository.findTotalFidelite(identifiant))
+                .numberPointsAddedPerMonth(calculPointAddByClient(identifiant))
+                .numberPointsUsedPerMonth(calculPointUsedByClient(identifiant))
+                .transactions(histoTransactionRepository.findLastTransactionsByClient(identifiant))
+                .build();
+    }
+
+    private int calculPointUsedByClient(String identifiant) {
+        LocalDate initial = LocalDate.now();
+        LocalDate start = initial.withDayOfMonth(1);
+        LocalDate end = initial.withDayOfMonth(initial.getMonth().length(initial.isLeapYear()));
+        return histoTransactionRepository.calculPointByClientAndTypeTransaction(identifiant, "debiteur", start, end);
+    }
+
+    private int calculPointAddByClient(String identifiant) {
+        LocalDate initial = LocalDate.now();
+        LocalDate start = initial.withDayOfMonth(1);
+        LocalDate end = initial.withDayOfMonth(initial.getMonth().length(initial.isLeapYear()));
+        return histoTransactionRepository.calculPointByClientAndTypeTransaction(identifiant, "crediteur", start, end);
+    }
+
     private int count30To50() {
-        LocalDate now  = LocalDate.now();
+        LocalDate now = LocalDate.now();
         LocalDate max = now.minusYears(30);
         LocalDate min = now.minusYears(50);
-        return carteRepository.countCarteByClientAndAge(min,max);
+        return carteRepository.countCarteByClientAndAge(min, max);
     }
 
     private int count18To30() {
-        LocalDate now  = LocalDate.now();
+        LocalDate now = LocalDate.now();
         LocalDate max = now.minusYears(18);
         LocalDate min = now.minusYears(30);
-        return carteRepository.countCarteByClientAndAge(min,max);
+        return carteRepository.countCarteByClientAndAge(min, max);
     }
 
     private int countMoins18() {
         LocalDate max = LocalDate.now();
         LocalDate min = max.minusYears(18);
-        return carteRepository.countCarteByClientAndAge(min,max);
+        return carteRepository.countCarteByClientAndAge(min, max);
     }
+
     private int countPlus50() {
         LocalDate now = LocalDate.now();
         LocalDate max = now.minusYears(50);
         LocalDate min = max.minusYears(100);
-        return carteRepository.countCarteByClientAndAge(min,max);
+        return carteRepository.countCarteByClientAndAge(min, max);
     }
 
     private StatPoint calculStatPoint() {

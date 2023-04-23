@@ -12,4 +12,7 @@ public interface CarteRepository extends JpaRepository<Carte,Long> {
 
     @Query("select count(*) as nbr from Carte c inner join c.client cc where :min < cc.datenaiss and :max > cc.datenaiss")
     Integer countCarteByClientAndAge(@Param("min") LocalDate min,@Param("max") LocalDate max);
+
+    @Query("select sum(c.nbPoints) from Carte c inner join c.client cc where cc.identifiant = :identifiant")
+    int findTotalFidelite(@Param("identifiant") String identifiant);
 }

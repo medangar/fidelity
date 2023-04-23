@@ -45,8 +45,12 @@ public class AuthServiceImpl implements AuthService {
 //                cookie.setSecure(true);
             cookie.setHttpOnly(true);
             cookie.setPath("/"); // Global
-            return new AuthenticationResponse(jwt, user.getPrenom(), user.getNom(),
-                    user.getRole().contains("ROLE_ADMIN"));
+            String identifiant = null;
+            Optional<Client> client = clientRepository.findById(user.getId());
+            if (client.isPresent())
+                identifiant = client.get().getIdentifiant();
+            return new AuthenticationResponse(jwt, user.getPrenom(), user.getNom(),identifiant,
+                    user.getRole().contains("Admin"));
         }
         return null;
     }

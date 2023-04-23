@@ -38,6 +38,22 @@ public interface HistoTransactionRepository extends JpaRepository<HistoTransacti
     @Query("SELECT t FROM HistoTransaction t ORDER BY t.dateTransaction DESC")
     List<HistoTransaction> findLastTransactions();
 
+    @Query("SELECT t FROM HistoTransaction t inner join t.carte c inner join c.client cl where cl.identifiant = :identifiant ORDER BY t.dateTransaction DESC")
+    List<HistoTransaction> findLastTransactionsByClient(@Param("identifiant") String identifiant);
+
     @Query("SELECT count(*) as nbr FROM HistoTransaction t inner join t.carte c inner join c.client cl where cl.sexe = :sexe")
     Integer getNumberTransactionBySexe(@Param("sexe") String sexe);
+
+    @Query(nativeQuery = true, value ="select sum(abs(h.solde_finale - h.solde_initiale)) as sum " +
+            "from hist_transaction h " +
+            "inner join carte c on c.carte_id = h.carte_id " +
+            "inner join client cl on cl.id = c.client_id " +
+            "where cl.identifiant = :identifiant and  h.type_transaction = :type " +
+            "and h.date_transaction >= :firstDay and h.date_transaction < :lastDay")
+    Integer calculPointByClientAndTypeTransaction(@Param("identifiant") String identifiant,
+                                                  @Param("type") String type,
+                                                  @Param("firstDay") LocalDate firstDay,
+                                                  @Param("lastDay") LocalDate lastDay);
+
+
 }
