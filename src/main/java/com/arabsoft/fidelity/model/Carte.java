@@ -27,6 +27,8 @@ public class Carte {
     private Float nbPoints;
     @Column(name = "statut", nullable = false)
     private String statut;
+    @Column(name = "name", nullable = false)
+    private String name;
     @ToString.Exclude
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     //@JoinColumn(name = "id")
