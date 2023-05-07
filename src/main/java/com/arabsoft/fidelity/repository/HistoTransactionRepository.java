@@ -1,5 +1,6 @@
 package com.arabsoft.fidelity.repository;
 
+import com.arabsoft.fidelity.model.Carte;
 import com.arabsoft.fidelity.model.HistoTransaction;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -54,6 +55,9 @@ public interface HistoTransactionRepository extends JpaRepository<HistoTransacti
                                                   @Param("type") String type,
                                                   @Param("firstDay") LocalDate firstDay,
                                                   @Param("lastDay") LocalDate lastDay);
+
+    @Query("select h from HistoTransaction h inner join h.carte c inner join c.client cc where cc.id = :clientId")
+    List<HistoTransaction> findByClientId(@Param("clientId") Long clientId);
 
 
 }

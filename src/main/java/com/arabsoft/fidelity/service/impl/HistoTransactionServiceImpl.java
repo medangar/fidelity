@@ -32,4 +32,9 @@ public class HistoTransactionServiceImpl implements HistoTransactionService {
     public void update(HistoTransaction histoTransaction) {
         histoTransactionRepository.save(histoTransaction);
     }
+
+    @Override
+    public List<HistoTransaction> getTransactionsByClientId(Long clientId) {
+        return histoTransactionRepository.findByClientId(clientId);
+    }
 }

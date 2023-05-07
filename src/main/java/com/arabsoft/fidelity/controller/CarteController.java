@@ -25,6 +25,11 @@ public class CarteController {
         return carteService.getCarteById(carteId);
     }
 
+    @GetMapping("/client/{clientId}")
+    public List<Carte> getCartesByClientId(@PathVariable(value = "clientId") Long clientId) {
+        return carteService.getCarteByClientId(clientId);
+    }
+
 
 
     @PostMapping

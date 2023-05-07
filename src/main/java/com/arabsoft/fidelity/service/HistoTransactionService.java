@@ -13,4 +13,6 @@ public interface HistoTransactionService {
     void delete(Long id);
 
     void saveOrUpdate(HistoTransaction histoTransaction);
+
+    List<HistoTransaction> getTransactionsByClientId(Long clientId);
 }

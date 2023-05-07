@@ -15,4 +15,6 @@ public interface CarteService {
     Carte saveOrUpdate(Carte carte);
 
     void delete(List<Long> ids);
+
+    List<Carte> getCarteByClientId(Long clientId);
 }

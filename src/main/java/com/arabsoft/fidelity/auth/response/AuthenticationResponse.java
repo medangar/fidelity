@@ -14,4 +14,7 @@ public class AuthenticationResponse {
   private String lastName;
   private String identifiant;
   private boolean isAdmin;
+  private String role;
+  private String gender;
+  private Long id;
 }

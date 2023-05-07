@@ -39,4 +39,9 @@ public class HistoTransactionController {
         histoTransactionService.saveOrUpdate(histoTransaction);
         return histoTransaction;
     }
+
+    @GetMapping("/client/{clientId}")
+    public List<HistoTransaction> getTransactionsByClientId(@PathVariable(value = "clientId") Long clientId) {
+        return histoTransactionService.getTransactionsByClientId(clientId);
+    }
 }

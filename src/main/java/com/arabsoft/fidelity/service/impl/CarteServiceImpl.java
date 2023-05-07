@@ -34,4 +34,9 @@ public class CarteServiceImpl implements CarteService {
     public void delete(List<Long> ids) {
         ids.forEach(carteRepository::deleteById);
     }
+
+    @Override
+    public List<Carte> getCarteByClientId(Long clientId) {
+        return carteRepository.findByClientId(clientId);
+    }
 }

@@ -6,6 +6,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Repository
 public interface CarteRepository extends JpaRepository<Carte,Long> {
@@ -15,4 +16,7 @@ public interface CarteRepository extends JpaRepository<Carte,Long> {
 
     @Query("select sum(c.nbPoints) from Carte c inner join c.client cc where cc.identifiant = :identifiant")
     int findTotalFidelite(@Param("identifiant") String identifiant);
+
+    @Query("select c from Carte c inner join c.client cc where cc.id = :clientId")
+    List<Carte> findByClientId(@Param("clientId") Long clientId);
 }

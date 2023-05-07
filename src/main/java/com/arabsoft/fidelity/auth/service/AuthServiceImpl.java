@@ -1,7 +1,5 @@
 package com.arabsoft.fidelity.auth.service;
 
-import com.arabsoft.fidelity.repository.ClientRepository;
-import com.arabsoft.fidelity.repository.UserRepository;
 import com.arabsoft.fidelity.auth.config.JwtUtils;
 import com.arabsoft.fidelity.auth.request.AuthenticationRequest;
 import com.arabsoft.fidelity.auth.request.ClientRequest;
@@ -9,6 +7,8 @@ import com.arabsoft.fidelity.auth.response.AuthenticationResponse;
 import com.arabsoft.fidelity.exception.FidelityException;
 import com.arabsoft.fidelity.model.Client;
 import com.arabsoft.fidelity.model.User;
+import com.arabsoft.fidelity.repository.ClientRepository;
+import com.arabsoft.fidelity.repository.UserRepository;
 import jakarta.servlet.http.Cookie;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -49,8 +49,9 @@ public class AuthServiceImpl implements AuthService {
             Optional<Client> client = clientRepository.findById(user.getId());
             if (client.isPresent())
                 identifiant = client.get().getIdentifiant();
-            return new AuthenticationResponse(jwt, user.getPrenom(), user.getNom(),identifiant,
-                    user.getRole().contains("Admin"));
+            return new AuthenticationResponse(jwt, user.getPrenom(), user.getNom(), identifiant,
+                    user.getRole().contains("Admin"), user.getRole(),
+                    client.isPresent() ? client.get().getSexe() : "Homme",user.getId());
         }
         return null;
     }
